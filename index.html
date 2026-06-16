@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Md Labib Hossen — Student & Developer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg2:#111111;
+    --card:#1a1a1a;
+    --border:#2a2a2a;
+    --accent:#e5e5e5;
+    --muted:#8a8a8a;
+  }
+  *{font-family:'Inter',sans-serif;}
+  body{
+    background:var(--bg);
+    color:#f5f5f5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.font-display{font-family:'Space Grotesk',sans-serif;}
+
+  /* Animated grid background */
+  .grid-bg{
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  .glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.35;
+    pointer-events:none;
+    z-index:0;
+  }
+  .glow-1{background:#444;width:500px;height:500px;top:-150px;right:-100px;}
+  .glow-2{background:#222;width:400px;height:400px;bottom:-100px;left:-100px;}
+
+  .nav-link{position:relative;transition:color .3s;}
+  .nav-link::after{
+    content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;
+    background:#fff;transition:width .3s;
+  }
+  .nav-link:hover::after{width:100%;}
+  .nav-link:hover{color:#fff;}
+
+  .hero-image-wrap{
+    position:relative;
+    border-radius:50%;
+    padding:6px;
+    background:linear-gradient(135deg,#2a2a2a,#4a4a4a,#1a1a1a);
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+  }
+  .hero-image-wrap::before{
+    content:'';
+    position:absolute;
+    inset:-20px;
+    border-radius:50%;
+    background:conic-gradient(from 0deg,#fff,#666,#000,#888,#fff);
+    filter:blur(40px);
+    opacity:.3;
+    z-index:-1;
+    animation:rotate 8s linear infinite;
+  }
+  @keyframes rotate{to{transform:rotate(360deg);}}
+
+  .hero-image{
+    width:280px;height:280px;border-radius:50%;
+    background:#1a1a1a;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    border:2px solid #333;
+  }
+  .hero-image img{width:100%;height:100%;object-fit:cover;}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    font-size:.85rem;color:#bbb;
+  }
+  .pulse-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 0 0 rgba(34,197,94,.7);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.7);}
+    70%{box-shadow:0 0 0 12px rgba(34,197,94,0);}
+    100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}
+  }
+
+  .btn-primary{
+    background:#fff;color:#000;
+    padding:14px 28px;border-radius:12px;
+    font-weight:600;transition:.3s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,255,255,.2);}
+  .btn-outline{
+    border:1px solid #333;color:#fff;
+    padding:14px 28px;border-radius:12px;
+    font-weight:600;transition:.3s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-outline:hover{background:#1a1a1a;border-color:#555;}
+
+  .section-title{
+    font-size:clamp(2rem,5vw,3.5rem);
+    font-weight:700;
+    background:linear-gradient(135deg,#fff 0%,#888 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+
+  .skill-card{
+    background:linear-gradient(145deg,#161616,#0f0f0f);
+    border:1px solid #222;border-radius:16px;
+    padding:24px;transition:.3s;
+    position:relative;overflow:hidden;
+  }
+  .skill-card::before{
+    content:'';position:absolute;top:0;left:-100%;
+    width:100%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
+    transition:.6s;
+  }
+  .skill-card:hover::before{left:100%;}
+  .skill-card:hover{transform:translateY(-5px);border-color:#444;}
+
+  .skill-bar{
+    height:6px;background:#222;border-radius:99px;overflow:hidden;margin-top:10px;
+  }
+  .skill-fill{
+    height:100%;background:linear-gradient(90deg,#fff,#888);
+    border-radius:99px;width:0;transition:width 1.5s ease;
+  }
+
+  .project-card{
+    background:linear-gradient(145deg,#161616,#0f0f0f);
+    border:1px solid #222;border-radius:20px;
+    overflow:hidden;cursor:pointer;
+    transition:.4s;position:relative;
+  }
+  .project-card:hover{
+    transform:translateY(-8px);
+    border-color:#555;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+  }
+  .project-thumb{
+    height:180px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:3rem;color:#444;
+    position:relative;overflow:hidden;
+  }
+  .project-thumb::after{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,.5));
+  }
+
+  .info-row{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 0;border-bottom:1px solid #1f1f1f;
+  }
+  .info-icon{
+    width:44px;height:44px;border-radius:12px;
+    background:#1a1a1a;border:1px solid #2a2a2a;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
+  }
+
+  .timeline-dot{
+    width:14px;height:14px;border-radius:50%;
+    background:#fff;border:3px solid #000;
+    box-shadow:0 0 0 2px #444;
+  }
+
+  .reveal{opacity:0;transform:translateY(30px);transition:.8s;}
+  .reveal.show{opacity:1;transform:translateY(0);}
+
+  footer{border-top:1px solid #1a1a1a;}
+
+  .social-btn{
+    width:44px;height:44px;border-radius:12px;
+    background:#151515;border:1px solid #252525;
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:.3s;color:#bbb;
+  }
+  .social-btn:hover{background:#fff;color:#000;transform:translateY(-3px);}
+
+  /* Hamburger */
+  .mobile-menu{
+    transform:translateX(100%);transition:.4s;
+  }
+  .mobile-menu.open{transform:translateX(0);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#home" class="font-display text-xl font-bold tracking-tight">
+      <span class="text-white">LABIB</span><span class="text-gray-500">.dev</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-gray-400 text-sm font-medium">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <a href="#contact" class="hidden md:inline-flex btn-primary !py-2 !px-5 text-sm">Hire Me</a>
+    <button id="menuBtn" class="md:hidden text-white text-2xl">☰</button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-72 bg-black border-l border-white/10 z-50 p-8 md:hidden">
+  <div class="flex justify-end mb-8">
+    <button id="closeBtn" class="text-white text-2xl">✕</button>
+  </div>
+  <div class="flex flex-col gap-6 text-gray-300 text-lg">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#skills" class="mobile-link">Skills</a>
+    <a href="#projects" class="mobile-link">Projects</a>
+    <a href="#education" class="mobile-link">Education</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 grid-bg overflow-hidden">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="reveal">
+      <div class="badge mb-6"><span class="pulse-dot"></span> Available for projects</div>
+      <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
+        Hi, I'm<br>
+        <span class="bg-gradient-to-r from-white via-gray-300 to-gray-600 bg-clip-text text-transparent">Md Labib Hossen</span>
+      </h1>
+      <p class="text-gray-400 text-lg md:text-xl mb-8 max-w-lg leading-relaxed">
+        A passionate <span class="text-white font-semibold">Student & Developer</span> from Bangladesh — crafting clean code, designing posters, and building things that matter.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#projects" class="btn-primary">View Projects →</a>
+        <a href="#contact" class="btn-outline">Contact Me</a>
+      </div>
+
+      <div class="flex gap-3 mt-10">
+ <a href="https://www.facebook.com/md.labib.hossen.007" class="social-btn" title="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5.02 3.66 9.18 8.44 9.93v-7.02H7.9v-2.91h2.54V9.84c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.45 2.91h-2.33V22c4.78-.75 8.43-4.91 8.43-9.93Z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/md.labib.hossen.007/" class="social-btn" title="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38a3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.85 5.85 0 0 0-2.13 1.38A5.85 5.85 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.73 1.46 1.38 2.13.67.65 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.85 5.85 0 0 0 2.13-1.38 5.85 5.85 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.85 5.85 0 0 0-1.38-2.13A5.85 5.85 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44Z"/></svg>
+        </a>
+        <a href="https://discord.com/users/1194306436696657980" class="social-btn" title="Discord">
+          <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
+  <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a74.37,74.37,0,0,0,6.72-11,68.6,68.6,0,0,1-10.64-5.12c.91-.67,1.81-1.37,2.65-2.1a75.22,75.22,0,0,0,72.76,0c.84.73,1.74,1.43,2.65,2.1a68.86,68.86,0,0,1-10.64,5.12,74.74,74.74,0,0,0,6.72,11,105.73,105.73,0,0,0,31-18.83C130.1,49.22,123.34,26.51,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.87,46,53.87,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.11,46,96.11,53,91,65.69,84.69,65.69Z"/>
+</svg>
+
+        </a>
+      </div>
+    </div>
+
+    <div class="flex justify-center reveal">
+      <div class="hero-image-wrap">
+        <div class="hero-image">
+          <img src="labib.png" alt="Md Labib Hossen" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=&quot;font-size:6rem;color:#666;font-weight:700;font-family:Space Grotesk&quot;>L</div>';">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 px-6 relative">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">Get to know me</p>
+      <h2 class="section-title">About Me</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div class="reveal">
+        <h3 class="font-display text-2xl md:text-3xl font-bold mb-6">A young developer with a passion for tech & design</h3>
+        <p class="text-gray-400 leading-relaxed mb-4">
+          I'm Md Labib Hossen, currently studying in Class 11 at <span class="text-white font-semibold">Rajbari Govt College</span>, Rajbari, Dhaka, Bangladesh. Alongside my studies, I'm deeply involved in software development and graphic design.
+        </p>
+        <p class="text-gray-400 leading-relaxed mb-4">
+          I love building things that solve real problems — whether it's a Java application, a clean website, or an eye-catching poster. My journey in tech started with curiosity, and it's now turning into a lifelong craft.
+        </p>
+        <p class="text-gray-400 leading-relaxed">
+          When I'm not coding, you'll find me designing posters in Photoshop or exploring new technologies.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8">
+          <div class="info-row">
+            <div class="info-icon">👤</div>
+            <div>
+              <div class="text-gray-500 text-xs uppercase tracking-wider">Full Name</div>
+              <div class="text-white font-semibold">Md Labib Hossen</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">🎓</div>
+            <div>
+              <div class="text-gray-500 text-xs uppercase tracking-wider">Education</div>
+              <div class="text-white font-semibold">Class 11, Rajbari Govt College</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">📍</div>
+            <div>
+              <div class="text-gray-500 text-xs uppercase tracking-wider">Location</div>
+              <div class="text-white font-semibold">Rajbari, Dhaka, Bangladesh</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon">💼</div>
+            <div>
+              <div class="text-gray-500 text-xs uppercase tracking-wider">Role</div>
+              <div class="text-white font-semibold">Student & Developer</div>
+            </div>
+          </div>
+          <div class="info-row !border-b-0">
+            <div class="info-icon">🚀</div>
+            <div>
+              <div class="text-gray-500 text-xs uppercase tracking-wider">Status</div>
+              <div class="text-white font-semibold">Open to Opportunities</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-24 px-6 bg-gradient-to-b from-black via-gray-950 to-black">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">What I do</p>
+      <h2 class="section-title">My Skills</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="skill-card reveal">
+        <div class="text-4xl mb-4">☕</div>
+        <h3 class="font-display text-xl font-bold mb-2">Java</h3>
+        <p class="text-gray-500 text-sm">Object-oriented programming & app development</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div>
+        <div class="text-right text-gray-500 text-xs mt-2">85%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="text-4xl mb-4">🌐</div>
+        <h3 class="font-display text-xl font-bold mb-2">HTML</h3>
+        <p class="text-gray-500 text-sm">Semantic markup & structured web pages</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="92%"></div></div>
+        <div class="text-right text-gray-500 text-xs mt-2">92%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="text-4xl mb-4">🎨</div>
+        <h3 class="font-display text-xl font-bold mb-2">CSS</h3>
+        <p class="text-gray-500 text-sm">Responsive design & modern layouts</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="88%"></div></div>
+        <div class="text-right text-gray-500 text-xs mt-2">88%</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="text-4xl mb-4">🖼️</div>
+        <h3 class="font-display text-xl font-bold mb-2">Photoshop</h3>
+        <p class="text-gray-500 text-sm">Poster design & graphic editing</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="80%"></div></div>
+        <div class="text-right text-gray-500 text-xs mt-2">80%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">My Works</p>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="text-gray-500 mt-4 max-w-xl mx-auto">A selection of demo projects showcasing my skills and creativity.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <a href="https://rising-students-association.github.io/risingstudentsassociation/" target="_blank" class="project-card reveal block">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1e1e1e,#0a0a0a);">
+          <span style="font-size:4rem;">R S A</span>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Association</div>
+          <h3 class="font-display text-xl font-bold mb-2">Rising Students Association - Website</h3>
+          <p class="text-gray-500 text-sm mb-4">A responsive website built with HTML & CSS.</p>
+          <div class="text-sm text-white font-semibold flex items-center gap-2">Click to Preview →</div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="https://labrapop.github.io/vitul-furnitures/" target="_blank" class="project-card reveal block">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#2a2a2a,#111);">
+          <span style="font-size:3rem;">Vital Furniture</span>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Shop</div>
+          <h3 class="font-display text-xl font-bold mb-2">Vital Furniture</h3>
+          <p class="text-gray-500 text-sm mb-4">A website for <b>Vital Furniture</b> built with HTML, CSS, JAVA & C++.</p>
+          <div class="text-sm text-white font-semibold flex items-center gap-2">Click to Preview →</div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="https://labrapop.github.io/prismnetwork-minecraft-server/" target="_blank" class="project-card reveal block">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1a1a1a,#000);">
+          <span style="font-size:3rem;">Prism Network</span>
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Game - Minecraft Server</div>
+          <h3 class="font-display text-xl font-bold mb-2">Prism Network Website</h3>
+          <p class="text-gray-500 text-sm mb-4">A website for Minecraft player for easy to access the server.</p>
+          <div class="text-sm text-white font-semibold flex items-center gap-2">Click to Preview →</div>
+        </div>
+      </a>
+
+         </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="py-24 px-6 bg-gradient-to-b from-black via-gray-950 to-black">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">My Journey</p>
+      <h2 class="section-title">Education</h2>
+    </div>
+
+    <div class="max-w-3xl mx-auto relative">
+      <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/30 via-gray-700 to-transparent"></div>
+
+      <div class="reveal relative mb-12 md:grid md:grid-cols-2 md:gap-8">
+        <div class="md:text-right md:pr-12">
+          <div class="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 ml-12 md:ml-0">
+            <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">2026 — Present</div>
+            <h3 class="font-display text-xl font-bold mb-2">Higher Secondary (Class 11)</h3>
+            <p class="text-gray-400 text-sm">Rajbari Govt College, Rajbari</p>
+            <p class="text-gray-500 text-sm mt-2">Currently pursuing HSC with focus on Humanities.</p>
+          </div>
+        </div>
+        <div class="absolute left-4 md:left-1/2 top-6 -translate-x-1/2 timeline-dot"></div>
+      </div>
+
+      <div class="reveal relative mb-12 md:grid md:grid-cols-2 md:gap-8">
+        <div></div>
+        <div class="md:pl-12">
+          <div class="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 ml-12 md:ml-0">
+            <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">Completed</div>
+            <h3 class="font-display text-xl font-bold mb-2">Secondary School Certificate</h3>
+            <p class="text-gray-400 text-sm">SSC — Bangladesh Education Board(Batch - 2025)</p>
+            <p class="text-gray-500 text-sm mt-2">Completed Secondary Education successfully form Rajbari Govt High School.</p>
+          </div>
+        </div>
+        <div class="absolute left-4 md:left-1/2 top-6 -translate-x-1/2 timeline-dot"></div>
+      </div>
+
+    
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal text-center mb-12">
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">Get in touch</p>
+      <h2 class="section-title">Let's Work Together</h2>
+      <p class="text-gray-500 mt-4">Have a project in mind? I'd love to hear from you.</p>
+    </div>
+
+    
+
+      <div class="grid sm:grid-cols-3 gap-4 mt-10 pt-10 border-t border-gray-800">
+        <div class="text-center">
+          <div class="text-2xl mb-2">📧</div>
+          <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">Email</div>
+          <div class="text-white text-sm">labibf390@gmail.com</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">📍</div>
+          <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">Location</div>
+          <div class="text-white text-sm">Rajbari, Dhaka, Bangladesh</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">📞</div>
+          <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">Mobile Number</div>
+          <div class="text-white text-sm">+880 1714149489</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 px-6">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="font-display font-bold">
+      <span class="text-white">LABIB</span><span class="text-gray-500">.dev</span>
+    </div>
+    <p class="text-gray-500 text-sm">© 2026 Md Labib Hossen. All rights reserved.</p>
+    <p class="text-gray-500 text-sm">Crafted with ❤️ in Bangladesh</p>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('show');
+        // skill fill
+        e.target.querySelectorAll('.skill-fill').forEach(f=>{
+          f.style.width = f.dataset.w;
+        });
+      }
+    });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  // Mobile menu
+  const menu = document.getElementById('mobileMenu');
+  document.getElementById('menuBtn').onclick = ()=>menu.classList.add('open');
+  document.getElementById('closeBtn').onclick = ()=>menu.classList.remove('open');
+  document.querySelectorAll('.mobile-link').forEach(l=>l.onclick=()=>menu.classList.remove('open'));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t = document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+    });
+  });
+</script>
+</body>
+</html>
