@@ -6,7 +6,7 @@
 <title>Md Labib Hossen — Student & Developer</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><clipPath id='c'><circle cx='50' cy='50' r='50'/></clipPath><image href='labib.png' width='100' height='100' clip-path='url(%23c)'/></svg>">
 <style>
   :root{
     --bg:#0a0a0a;
@@ -148,13 +148,13 @@
     border-radius:99px;width:0;transition:width 1.5s ease;
   }
 
-  .project-card{
+  .project-card, .poster-card{
     background:linear-gradient(145deg,#161616,#0f0f0f);
     border:1px solid #222;border-radius:20px;
     overflow:hidden;cursor:pointer;
     transition:.4s;position:relative;
   }
-  .project-card:hover{
+  .project-card:hover, .poster-card:hover{
     transform:translateY(-8px);
     border-color:#555;
     box-shadow:0 20px 50px rgba(0,0,0,.5);
@@ -165,9 +165,17 @@
     font-size:3rem;color:#444;
     position:relative;overflow:hidden;
   }
-  .project-thumb::after{
-    content:'';position:absolute;inset:0;
-    background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,.5));
+  .poster-thumb{
+    height:300px;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    background:#111;
+  }
+  .poster-thumb img{
+    width:100%;height:100%;object-fit:cover;transition:transform .5s ease;
+  }
+  .poster-card:hover .poster-thumb img{
+    transform:scale(1.05);
   }
 
   .info-row{
@@ -205,6 +213,35 @@
     transform:translateX(100%);transition:.4s;
   }
   .mobile-menu.open{transform:translateX(0);}
+
+  /* Modal Lightbox Styles */
+  #lightboxModal{
+    display:none;
+    opacity:0;
+    transition:opacity 0.3s ease;
+  }
+  #lightboxModal.active{
+    display:flex;
+    opacity:1;
+  }
+  .modal-btn{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.2s;
+    backdrop-filter:blur(8px);
+  }
+  .modal-btn:hover{
+    background:#fff;
+    color:#000;
+  }
 </style>
 </head>
 <body>
@@ -219,6 +256,7 @@
       <a href="#about" class="nav-link">About</a>
       <a href="#skills" class="nav-link">Skills</a>
       <a href="#projects" class="nav-link">Projects</a>
+      <a href="#posters" class="nav-link">Posters</a>
       <a href="#education" class="nav-link">Education</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
@@ -236,6 +274,7 @@
     <a href="#about" class="mobile-link">About</a>
     <a href="#skills" class="mobile-link">Skills</a>
     <a href="#projects" class="mobile-link">Projects</a>
+    <a href="#posters" class="mobile-link">Posters</a>
     <a href="#education" class="mobile-link">Education</a>
     <a href="#contact" class="mobile-link">Contact</a>
   </div>
@@ -250,7 +289,7 @@
       <div class="badge mb-6"><span class="pulse-dot"></span> Available for projects</div>
       <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight mb-6">
         Hi, I'm<br>
-        <span class="bg-gradient-to-r from-white via-gray-300 to-gray-600 bg-clip-text text-transparent">MD LABIB HOSSEN</span>
+        <span class="bg-gradient-to-r from-white via-gray-300 to-gray-600 bg-clip-text text-transparent">Md Labib Hossen</span>
       </h1>
       <p class="text-gray-400 text-lg md:text-xl mb-8 max-w-lg leading-relaxed">
         A passionate <span class="text-white font-semibold">Student & Developer</span> from Bangladesh — crafting clean code, designing posters, and building things that matter.
@@ -439,7 +478,122 @@
   </div>
 </section>
 
-<section id="education" class="py-24 px-6 bg-gradient-to-b from-black via-gray-950 to-black">
+<!-- POSTER DESIGNS SECTION WITH INTERACTIVE PREVIEW -->
+<section id="posters" class="py-24 px-6 bg-gradient-to-b from-black via-gray-950 to-black">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">Creative Portfolio</p>
+      <h2 class="section-title">Poster Designs</h2>
+      <p class="text-gray-500 mt-4 max-w-xl mx-auto">Click any poster to open full preview with zoom in/out and drag controls.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Poster 1: Amena Poster -->
+      <div class="poster-card reveal poster-item" data-src="Amena Poster.jpg" data-title="Amena Eye Center Banner">
+        <div class="poster-thumb">
+          <img src="Amena Poster.jpg" alt="Amena Poster Design" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'text-gray-600 font-display font-bold text-lg\'>Amena Poster.jpg</div>';">
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Photoshop Design</div>
+          <h3 class="font-display text-xl font-bold mb-2">Amena Eye Center Banner</h3>
+          <p class="text-gray-500 text-sm mb-4">Custom graphic poster design crafted with fine visual hierarchy and clean typography.</p>
+          <div class="text-xs text-white font-semibold flex items-center gap-1">🔍 Click to Expand & Zoom</div>
+        </div>
+      </div>
+
+      <!-- Poster 2 -->
+      <div class="poster-card reveal poster-item" data-src="6 Done.jpg" data-title="Amena Eye Center Banner">
+        <div class="poster-thumb">
+          <img src="6 Done.jpg" alt="Amena Poster Design" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'text-gray-600 font-display font-bold text-lg\'>Amena Poster.jpg</div>';">
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Photoshop Design</div>
+          <h3 class="font-display text-xl font-bold mb-2">Amena Eye Center Promotion 1</h3>
+          <p class="text-gray-500 text-sm mb-4">Promotional Poster</p>
+          <div class="text-xs text-white font-semibold flex items-center gap-1">🔍 Click to Expand & Zoom</div>
+        </div>
+      </div>
+
+      <!-- Poster 3 -->
+      <div class="poster-card reveal poster-item" data-src="4 Done.jpg" data-title="Amena Eye Center Banner">
+        <div class="poster-thumb">
+          <img src="4 Done.jpg" alt="Amena Poster Design" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'text-gray-600 font-display font-bold text-lg\'>Amena Poster.jpg</div>';">
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Photoshop Design</div>
+          <h3 class="font-display text-xl font-bold mb-2">Amena Eye Center Promotion 2</h3>
+          <p class="text-gray-500 text-sm mb-4">Promotional Poster</p>
+          <div class="text-xs text-white font-semibold flex items-center gap-1">🔍 Click to Expand & Zoom</div>
+        </div>
+      </div>
+
+<!-- Poster 4 -->
+   <div class="poster-card reveal poster-item" data-src="2 Done.jpg" data-title="Amena Eye Center Banner">
+        <div class="poster-thumb">
+          <img src="2 Done.jpg" alt="Amena Poster Design" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'text-gray-600 font-display font-bold text-lg\'>Amena Poster.jpg</div>';">
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Photoshop Design</div>
+          <h3 class="font-display text-xl font-bold mb-2">Amena Eye Center Promotion 3</h3>
+          <p class="text-gray-500 text-sm mb-4">Promotional Poster</p>
+          <div class="text-xs text-white font-semibold flex items-center gap-1">🔍 Click to Expand & Zoom</div>
+        </div>
+      </div>
+
+<!-- Poster 5 -->
+      <div class="poster-card reveal poster-item" data-src="3 Done.jpg" data-title="Amena Eye Center Banner">
+        <div class="poster-thumb">
+          <img src="3 Done.jpg" alt="Amena Poster Design" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'text-gray-600 font-display font-bold text-lg\'>Amena Poster.jpg</div>';">
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Photoshop Design</div>
+          <h3 class="font-display text-xl font-bold mb-2">Amena Eye Center Promotion 2</h3>
+          <p class="text-gray-500 text-sm mb-4">Promotional Poster</p>
+          <div class="text-xs text-white font-semibold flex items-center gap-1">🔍 Click to Expand & Zoom</div>
+        </div>
+      </div>
+
+<!-- Poster 6 -->
+      <div class="poster-card reveal poster-item" data-src="7 Done.jpg" data-title="Amena Eye Center Banner">
+        <div class="poster-thumb">
+          <img src="7 Done.jpg" alt="Amena Poster Design" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'text-gray-600 font-display font-bold text-lg\'>2 Done.jpg</div>';">
+        </div>
+        <div class="p-6">
+          <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Photoshop Design</div>
+          <h3 class="font-display text-xl font-bold mb-2">Amena Eye Center Promotion 2</h3>
+          <p class="text-gray-500 text-sm mb-4">Promotional Poster</p>
+          <div class="text-xs text-white font-semibold flex items-center gap-1">🔍 Click to Expand & Zoom</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- FULLSCREEN LIGHTBOX MODAL WITH ZOOM & PAN -->
+<div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md items-center justify-center p-4">
+  <!-- Controls Bar -->
+  <div class="absolute top-6 right-6 flex items-center gap-3 z-50">
+    <button id="zoomInBtn" class="modal-btn" title="Zoom In">+</button>
+    <button id="zoomOutBtn" class="modal-btn" title="Zoom Out">−</button>
+    <button id="resetZoomBtn" class="modal-btn" title="Reset Zoom">↺</button>
+    <button id="closeModalBtn" class="modal-btn" title="Close">✕</button>
+  </div>
+
+  <!-- Title Badge -->
+  <div class="absolute top-6 left-6 z-50 hidden sm:block">
+    <h4 id="modalTitle" class="font-display text-white text-lg font-bold">Poster Preview</h4>
+    <p class="text-gray-400 text-xs">Use mouse wheel or buttons to zoom, click & drag to pan</p>
+  </div>
+
+  <!-- Image Container -->
+  <div id="modalContainer" class="w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
+    <img id="modalImage" src="" alt="Poster Full View" class="max-h-[85vh] max-w-[90vw] object-contain transition-transform duration-100 ease-out select-none">
+  </div>
+</div>
+
+<section id="education" class="py-24 px-6">
   <div class="max-w-7xl mx-auto">
     <div class="reveal text-center mb-16">
       <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">My Journey</p>
@@ -467,8 +621,8 @@
           <div class="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-6 ml-12 md:ml-0">
             <div class="text-gray-500 text-xs uppercase tracking-widest mb-1">Completed</div>
             <h3 class="font-display text-xl font-bold mb-2">Secondary School Certificate</h3>
-            <p class="text-gray-400 text-sm">SSC — Bangladesh Education Board(Batch - 2025)</p>
-            <p class="text-gray-500 text-sm mt-2">Completed Secondary Education successfully form Rajbari Govt High School.</p>
+            <p class="text-gray-400 text-sm">SSC — Bangladesh Education Board (Batch - 2025)</p>
+            <p class="text-gray-500 text-sm mt-2">Completed Secondary Education successfully from Rajbari Govt High School.</p>
           </div>
         </div>
         <div class="absolute left-4 md:left-1/2 top-6 -translate-x-1/2 timeline-dot"></div>
@@ -477,7 +631,7 @@
   </div>
 </section>
 
-<section id="contact" class="py-24 px-6">
+<section id="contact" class="py-24 px-6 bg-gradient-to-b from-black via-gray-950 to-black">
   <div class="max-w-4xl mx-auto">
     <div class="reveal text-center mb-12">
       <p class="text-gray-500 uppercase tracking-widest text-sm mb-3">Get in touch</p>
@@ -570,6 +724,115 @@
       const t = document.querySelector(a.getAttribute('href'));
       if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
     });
+  });
+
+  // Lightbox Modal Logic with Zoom & Pan
+  const modal = document.getElementById('lightboxModal');
+  const modalImg = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalContainer = document.getElementById('modalContainer');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const zoomInBtn = document.getElementById('zoomInBtn');
+  const zoomOutBtn = document.getElementById('zoomOutBtn');
+  const resetZoomBtn = document.getElementById('resetZoomBtn');
+
+  let scale = 1;
+  let posX = 0;
+  let posY = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+
+  function updateTransform() {
+    modalImg.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+  }
+
+  function resetZoom() {
+    scale = 1;
+    posX = 0;
+    posY = 0;
+    updateTransform();
+  }
+
+  function openModal(src, title) {
+    modalImg.src = src;
+    modalTitle.textContent = title || 'Poster Preview';
+    resetZoom();
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  document.querySelectorAll('.poster-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const src = item.getAttribute('data-src');
+      const title = item.getAttribute('data-title');
+      openModal(src, title);
+    });
+  });
+
+  closeModalBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target === modalContainer) {
+      closeModal();
+    }
+  });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Zoom Buttons
+  zoomInBtn.addEventListener('click', () => {
+    scale = Math.min(scale + 0.3, 4);
+    updateTransform();
+  });
+
+  zoomOutBtn.addEventListener('click', () => {
+    scale = Math.max(scale - 0.3, 0.5);
+    if (scale <= 1) { posX = 0; posY = 0; }
+    updateTransform();
+  });
+
+  resetZoomBtn.addEventListener('click', resetZoom);
+
+  // Mouse Wheel Zooming
+  modalContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (e.deltaY < 0) {
+      scale = Math.min(scale + 0.2, 4);
+    } else {
+      scale = Math.max(scale - 0.2, 0.5);
+      if (scale <= 1) { posX = 0; posY = 0; }
+    }
+    updateTransform();
+  });
+
+  // Mouse Dragging / Panning
+  modalContainer.addEventListener('mousedown', (e) => {
+    if (scale > 1) {
+      isDragging = true;
+      startX = e.clientX - posX;
+      startY = e.clientY - posY;
+    }
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    posX = e.clientX - startX;
+    posY = e.clientY - startY;
+    updateTransform();
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
   });
 </script>
 </body>
